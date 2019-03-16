@@ -79,4 +79,10 @@ services:
       - coho_network
 
 
-
+  composer:
+    container_name: COHO_composer
+    image: composer
+    user: "${USER_ID}:${GROUP_ID}"
+    volumes:
+      - "./webapp:/app"
+    command: install
