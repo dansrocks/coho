@@ -1,2 +1,2 @@
-# coho
-Control de horarios de empleados
+# co·ho
+Control de horarios
