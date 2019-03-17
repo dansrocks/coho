@@ -48,7 +48,7 @@ class ClockTypesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.clocktypes.create');
     }
 
     /**
@@ -59,7 +59,21 @@ class ClockTypesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'clocktype_name'=>'required|max:15|unique:clock_types,key',
+            'clocktype_description'=> 'present|max:120',
+        ]);
+
+        $clockTypeData = [
+            'key' => $request->get('clocktype_name'),
+            'description'=> $request->get('clocktype_description'),
+        ];
+        $clockType = new ClockType($clockTypeData);
+        $clockType->save();
+
+        $message = sprintf("Se ha creado el registro de tiempo de tipo '%s'", $clockTypeData['key']);
+
+        return redirect(route('clocktypes.index'))->with('success', $message);
     }
 
     /**
