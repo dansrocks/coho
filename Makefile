@@ -1,4 +1,5 @@
 PHP_CONTAINER = php-fpm
+COMPOSER_CONTAINER = composer
 
 
 # Based on https://github.com/machuga/laravel-io/blob/master/Makefile
@@ -11,17 +12,23 @@ all:
 	@echo "\nArtisan"
 	@echo "  make migrate          - Ejecuta 'migrate' en el contenedor de PHP"
 	@echo "  make rollback         - Ejecuta 'migrate:rollback' en el contenedor de PHP"
-	@echo "  make seed             - Seed database. Called automatically with 'make vagrant'"
+	@echo "  make seed             - Seed database"
 
 	@echo "\nComposer"
-	@echo "  make composer-download        - Download and install composer."
+	@echo "  make composer         - Execute composer install"
 
 # Give help
 # Use: make help
 help: all
 
 make migrate:
-	docker-compose exec $(PHP_CONTAINER) php artisan migrate
+	@docker-compose exec $(PHP_CONTAINER) php artisan migrate
 
 make rollback:
-	docker-compose exec $(PHP_CONTAINER) php artisan migrate:rollback
+	@docker-compose exec $(PHP_CONTAINER) php artisan migrate:rollback
+
+make seed:
+	@docker-compose exec $(PHP_CONTAINER) php artisan db:seed
+
+make composer:
+	@docker-compose up $(COMPOSER_CONTAINER)
