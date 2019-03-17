@@ -72,7 +72,19 @@
             </div>
         </nav>
 
+
         <main class="py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="content">
+                            <h1 class="m-b-md">{{ env('APP_NAME') }}</h1>
+                            <h2 class="m-b-md shadow">{{ env('APP_SUBTITLE','') }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @yield('content')
         </main>
     </div>
