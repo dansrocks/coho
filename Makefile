@@ -9,8 +9,8 @@ all:
 	@echo "DummyTool for lazy developers."
 
 	@echo "\nArtisan"
-	@echo "  make migrate          - Launches a migration command on your vagrantbox. Called automatically with 'make vagrant'"
-	@echo "  make rollback         - Launches a rollback command on your vagrantbox."
+	@echo "  make migrate          - Ejecuta 'migrate' en el contenedor de PHP"
+	@echo "  make rollback         - Ejecuta 'migrate:rollback' en el contenedor de PHP"
 	@echo "  make seed             - Seed database. Called automatically with 'make vagrant'"
 
 	@echo "\nComposer"
@@ -22,3 +22,6 @@ help: all
 
 make migrate:
 	docker-compose exec $(PHP_CONTAINER) php artisan migrate
+
+make rollback:
+	docker-compose exec $(PHP_CONTAINER) php artisan migrate:rollback
