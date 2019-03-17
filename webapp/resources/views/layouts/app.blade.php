@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body background="{{ asset('images/wallpapers/clockwork-abstract.png') }}" style="background-size: 100%">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -72,7 +72,19 @@
             </div>
         </nav>
 
+
         <main class="py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="content">
+                            <h1 class="m-b-md">{{ env('APP_NAME') }}</h1>
+                            <h2 class="m-b-md shadow">{{ env('APP_SUBTITLE','') }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @yield('content')
         </main>
     </div>
