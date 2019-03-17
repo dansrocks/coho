@@ -20,7 +20,7 @@ class UserHasAdminRole
         $user = Auth::user();
 
         if (! $user instanceof IUser) {
-            return redirect(route('lo444gin'));
+            return redirect(route('login'));
 
         }
 
