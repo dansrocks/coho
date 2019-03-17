@@ -27,7 +27,6 @@ class ClockTypesController extends Controller
         // $this->middleware('auth');
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -75,17 +74,6 @@ class ClockTypesController extends Controller
         $message = sprintf("Se ha creado el registro de tiempo de tipo '%s'", $clockTypeData['name']);
 
         return redirect(route('clocktypes.index'))->with('success', $message);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
