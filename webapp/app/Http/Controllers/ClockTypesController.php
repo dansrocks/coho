@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClockType;
 use Illuminate\Http\Request;
 
 
@@ -33,7 +34,11 @@ class ClockTypesController extends Controller
      */
     public function index()
     {
-        //
+        $content = [
+            'clockTypes' => ClockType::all(['id', 'description'])
+        ];
+
+        return view('admin.clocktypes.view', $content);
     }
 
     /**
