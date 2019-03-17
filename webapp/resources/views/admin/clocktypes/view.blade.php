@@ -22,12 +22,18 @@
                             </div><br />
                         @endif
 
-                        <table class="table table-sm table-hover table-striped">
-                            <thead>
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger">{{ $error }}</div>
+                            @endforeach
+                        @endif
+
+                        <table class="table table-sm table-bordered table-striped table-hover ">
+                            <thead class="thead-dark">
                             <tr>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
-                                <th>Acciones</th>
+                                <th colspan="2">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -35,8 +41,10 @@
                                 <tr>
                                     <td>{{$clockType->name}}</td>
                                     <td>{{$clockType->description}}</td>
-                                    <td><a href="{{ route('clocktypes.edit',$clockType->id)}}" class="btn btn-sm btn-primary">Modificar</a></td>
-                                    <td>
+                                    <td class="text-center">
+                                        <a href="{{ route('clocktypes.edit',$clockType->id)}}" class="btn btn-sm btn-primary">Modificar</a>
+                                    </td>
+                                    <td class="text-center">
                                         <form action="{{ route('clocktypes.destroy', $clockType->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
@@ -54,6 +62,10 @@
                             @endforelse
                             </tbody>
                         </table>
+                        <hr />
+                        <div class="text-right">
+                            <a href="{{ route('clocktypes.create') }}" class="btn btn-sm btn-primary">Crear nuevo registro</a>
+                        </div>
                     </div>
                 </div>
             </div>
