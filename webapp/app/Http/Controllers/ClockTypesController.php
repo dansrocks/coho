@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClockType;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 
@@ -114,10 +115,25 @@ class ClockTypesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        //
+        $action = redirect(route('clocktypes.index'));
+
+        try {
+            /** @var ClockType $clockType */
+            $clockType = ClockType::findOrFail($id);
+            $clockType->delete();
+            $action->with('success', 'Stock has been deleted Successfully');
+
+        } catch (ModelNotFoundException $exception) {
+            $action->withErrors('No existe el registro o ya ha sido borrado');
+        }
+
+        return $action;
     }
 }
