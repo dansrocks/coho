@@ -19,4 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('admin/clocktypes', 'ClockTypesController')->except([]);
+// Ruta para gestión de Tipo de registros de tiempo
+// Nota: se añadió por error en un commit anterior)
+Route::resource('admin/clocktypes', 'ClockTypesController')->except( [] );
