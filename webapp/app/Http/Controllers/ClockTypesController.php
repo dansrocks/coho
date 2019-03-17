@@ -60,7 +60,7 @@ class ClockTypesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'clocktype_name'=>'required|max:15|unique:clock_types,name',
+            'clocktype_name'=>'required|min:3|max:15|unique:clock_types,name',
             'clocktype_description'=> 'present|max:120',
         ]);
 
@@ -111,7 +111,7 @@ class ClockTypesController extends Controller
 
         try {
             $request->validate([
-                'clocktype_name' => 'required|max:15',
+                'clocktype_name' => 'required|min:3|max:15',
                 'clocktype_description' => 'present|max:120',
             ]);
 
