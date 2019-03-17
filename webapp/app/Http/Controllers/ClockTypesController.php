@@ -23,8 +23,7 @@ class ClockTypesController extends Controller
      */
     public function __construct()
     {
-        // @TODO crear un middleware para autenticar que tiene rol admin
-        // $this->middleware('auth');
+         $this->middleware('required.admin');
     }
 
     /**
