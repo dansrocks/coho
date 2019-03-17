@@ -33,14 +33,14 @@
                             <tbody>
                             @forelse($clockTypes as $clockType)
                                 <tr>
-                                    <td>{{$clockType->key}}</td>
+                                    <td>{{$clockType->name}}</td>
                                     <td>{{$clockType->description}}</td>
-                                    <td><a href="{{ route('clocktypes.edit',$clockType->id)}}" class="btn btn-primary">Modificar</a></td>
+                                    <td><a href="{{ route('clocktypes.edit',$clockType->id)}}" class="btn btn-sm btn-primary">Modificar</a></td>
                                     <td>
                                         <form action="{{ route('clocktypes.destroy', $clockType->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger" type="submit">Borrar</button>
+                                            <button class="btn btn-sm btn-danger" type="submit">Borrar</button>
                                         </form>
                                     </td>
                                 </tr>

@@ -35,7 +35,7 @@ class ClockTypesController extends Controller
     public function index()
     {
         $content = [
-            'clockTypes' => ClockType::all(['id', 'description'])
+            'clockTypes' => ClockType::all(['id', 'name', 'description'])
         ];
 
         return view('admin.clocktypes.view', $content);
@@ -60,18 +60,18 @@ class ClockTypesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'clocktype_name'=>'required|max:15|unique:clock_types,key',
+            'clocktype_name'=>'required|max:15|unique:clock_types,name',
             'clocktype_description'=> 'present|max:120',
         ]);
 
         $clockTypeData = [
-            'key' => $request->get('clocktype_name'),
+            'name' => $request->get('clocktype_name'),
             'description'=> $request->get('clocktype_description'),
         ];
         $clockType = new ClockType($clockTypeData);
         $clockType->save();
 
-        $message = sprintf("Se ha creado el registro de tiempo de tipo '%s'", $clockTypeData['key']);
+        $message = sprintf("Se ha creado el registro de tiempo de tipo '%s'", $clockTypeData['name']);
 
         return redirect(route('clocktypes.index'))->with('success', $message);
     }

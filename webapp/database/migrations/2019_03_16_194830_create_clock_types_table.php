@@ -15,7 +15,7 @@ class CreateClockTypesTable extends Migration
     {
         Schema::create('clock_types', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('key',15);
+            $table->string('name',15);
             $table->string('description',120);
             $table->timestamps();
             $table->softDeletes();
