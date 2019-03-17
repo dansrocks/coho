@@ -35,9 +35,9 @@
                                 <tr>
                                     <td>{{$clockType->key}}</td>
                                     <td>{{$clockType->description}}</td>
-                                    <td><a href="{{ route('clocktypes.edit',$share->id)}}" class="btn btn-primary">Modificar</a></td>
+                                    <td><a href="{{ route('clocktypes.edit',$clockType->id)}}" class="btn btn-primary">Modificar</a></td>
                                     <td>
-                                        <form action="{{ route('clocktypes.destroy', $share->id)}}" method="post">
+                                        <form action="{{ route('clocktypes.destroy', $clockType->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger" type="submit">Borrar</button>
@@ -46,7 +46,10 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3">No se ha creado ningún registro todavía.</td>
+                                    <td colspan="3">
+                                        No se ha creado ningún registro todavía.
+                                        <a href="{{ route('clocktypes.create') }}">Crear registro</a>
+                                    </td>
                                 </tr>
                             @endforelse
                             </tbody>
