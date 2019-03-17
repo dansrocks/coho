@@ -96,7 +96,18 @@ class ClockTypesController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $content = [
+                'clockType' => ClockType::findOrFail($id)
+            ];
+            $action = view('admin.clocktypes.edit', $content);
+
+        } catch (ModelNotFoundException $exception) {
+            $action = redirect(route('clocktypes.index'))
+                        ->withErrors('No existe el registro solicitado');
+        }
+
+        return $action;
     }
 
     /**
@@ -108,7 +119,36 @@ class ClockTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $action = redirect(route('clocktypes.index'));
+
+        try {
+            $request->validate([
+                'clocktype_name' => 'required|max:15',
+                'clocktype_description' => 'present|max:120',
+            ]);
+
+            $newName = $request->get('clocktype_name');
+
+            $clockType = ClockType::find($id);
+            if ($clockType->name != $newName) {
+                $request->validate([
+                    'clocktype_name' => 'unique:clock_types,name',
+                ]);
+            }
+
+            $clockType->name = $newName;
+            $clockType->description = $request->get('clocktype_description');
+            $clockType->save();
+
+            $message = sprintf("Se ha actualizado el registro de tiempo de tipo '%s'", $newName);
+            $action->with('success', $message);
+
+        } catch (ModelNotFoundException $exception) {
+            $action->withErrors('No existe el registro solicitado');
+
+        }
+
+        return $action;
     }
 
     /**
