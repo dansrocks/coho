@@ -7,6 +7,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ *
+ * @package App
+ */
 class User extends Authenticatable implements IUser
 {
     use Notifiable;
@@ -17,7 +22,7 @@ class User extends Authenticatable implements IUser
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'role', 'password',
     ];
 
     /**
@@ -49,6 +54,4 @@ class User extends Authenticatable implements IUser
     {
         return $this->getAttribute('role') == self::ROLE_ADMIN;
     }
-
-
 }

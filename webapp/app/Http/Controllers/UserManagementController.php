@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\IUser;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 
 /**
@@ -50,7 +49,7 @@ class UserManagementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -86,7 +85,18 @@ class UserManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $content = [
+                'user' => User::findOrFail($id)
+            ];
+            $action = view('admin.users.edit', $content);
+
+        } catch (ModelNotFoundException $exception) {
+            $action = redirect(route('users.index'))
+                ->withErrors('El usuario no existe.');
+        }
+
+        return $action;
     }
 
     /**
@@ -98,7 +108,48 @@ class UserManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $action = redirect(route('users.index'));
+
+        try {
+            $data = [];
+
+            $roleValidation = sprintf("in:%s", implode(',', [IUser::ROLE_USER, IUser::ROLE_ADMIN]));
+            $request->validate([
+                'name' => 'required|string|min:3|max:255',
+                'email' => 'present|string|email|max:255',
+                'password' => 'present|confirmed',
+                'role' => 'required|string|' . $roleValidation,
+            ]);
+
+            $data['name'] = $request->get('name');
+            $data['role'] = $request->get('role');
+
+            $hasPassword = ! empty($request->get('password'));
+            if ($hasPassword) {
+                $request->validate([
+                    'password' => 'min:8',
+                ]);
+                $data['password'] = Hash::make($request->get('password'));
+            }
+
+            $user = User::find($id);
+            if ($user->email != $request->get('email')) {
+                $request->validate([
+                    'email' => 'unique:users,email',
+                ]);
+                $data['email'] = $request->get('email');
+            }
+
+            $user->update($data);
+            $user->save();
+
+            $action->with('success', "Usuario actualizado");
+
+        } catch (ModelNotFoundException $exception) {
+            $action->withErrors('Usuario no existe o es inválido');
+        }
+
+        return $action;
     }
 
     /**
