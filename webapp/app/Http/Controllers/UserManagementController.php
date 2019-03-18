@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IUser;
 use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 /**
  * Class UserManagementController
@@ -33,7 +38,7 @@ class UserManagementController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.register');
     }
 
     /**
@@ -44,7 +49,22 @@ class UserManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->get('name'),
+            'role' => IUser::ROLE_USER,
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+        ]);
+
+        $message = sprintf("Usuario '%s' creado con éxito", $user->name);
+
+        return redirect(route('users.index'))->with('success', $message);
     }
 
     /**
