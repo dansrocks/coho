@@ -6,6 +6,7 @@ use App\Interfaces\IUser;
 use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -156,10 +157,29 @@ class UserManagementController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
+     *
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        $action = redirect(route('users.index'));
+
+        try {
+            if (Auth::user()->id != $id) {
+                /** @var User $user */
+                $user = User::findOrFail($id);
+                $user->delete();
+                $action->with('success', "Usuario eliminado");
+
+            } else {
+                $action->withErrors('No puedes borrarte a ti mismo como usuario');
+            }
+        } catch (ModelNotFoundException $exception) {
+            $action->withErrors("Usuario inexistente");
+        }
+
+        return $action;
     }
 }
