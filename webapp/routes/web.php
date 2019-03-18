@@ -19,7 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Rutas para gestión de Tipo de registros de tiempo
-Route::middleware('required.admin')->resource('admin/clocktypes', 'ClockTypesController')->except(['show']);
 
-Route::middleware('required.admin')->resource('admin/users', 'UserManagementController')->except(['show']);
+Route::middleware('required.admin')->prefix('admin')->group(function () {
+
+    // Rutas para gestión de Tipo de registros de tiempo
+    Route::resource('clocktypes', 'ClockTypesController')->except(['show']);
+
+    // Rutas para gestión de usuario
+    Route::resource('users', 'UserManagementController')->except(['show']);
+
+});
+
+
