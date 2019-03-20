@@ -55,6 +55,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if (Auth::user()->hasRole(\App\Interfaces\IUser::ROLE_ADMIN))
+                                        <a class="dropdown-item" href="{{ route('users.index') }}">
+                                            Gestión de usuarios
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('clocktypes.index') }}">
+                                            Clasificación de tiempos
+                                        </a>
+                                        <hr/>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
