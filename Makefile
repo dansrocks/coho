@@ -1,5 +1,6 @@
 PHP_CONTAINER = php-fpm
 COMPOSER_CONTAINER = composer
+NODE_CONTAINER = node:10.15-alpine
 
 
 # Based on https://github.com/machuga/laravel-io/blob/master/Makefile
@@ -32,3 +33,6 @@ make seed:
 
 make composer:
 	@docker-compose up $(COMPOSER_CONTAINER)
+
+make npm:
+	@docker-compose run $(NODE_CONTAINER)
