@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/clockin', 'TimeClocksController@clockin')->name('clockin');
+Route::get('/clockout', 'TimeClocksController@clockout')->name('clockout');
 
 Route::middleware('required.admin')->prefix('admin')->group(function () {
 
