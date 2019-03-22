@@ -25,5 +25,9 @@ Out Of Office: http://chittagongit.com/icon/office-chair-icon-28.html
 [download] http://chittagongit.com/images/time-icon-png/time-icon-png-28.jpg
 [website]  http://chittagongit.com/icon/time-icon-png-28.html
 ----
+[image]    thinking_time.png
+[download] http://chittagongit.com//images/thinking-icon-png/thinking-icon-png-28.jpg
+[website]  http://chittagongit.com/icon/thinking-icon-png-28.html
+----
 Taza de café
 https://www.iconfinder.com/icons/2481598/break_break_time_lunch_break_rest_rest_and_relax_rest_time_time_off_icon
