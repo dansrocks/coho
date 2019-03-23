@@ -31,10 +31,6 @@ class ClockTypeSeeder extends Seeder
     {
         return [
             [
-                'name' => ITimeClock::TYPE_OUT_OFF_OFFICE,
-                'description' => 'Fuera de la oficina',
-            ],
-            [
                 'name' => ITimeClock::TYPE_WORKING,
                 'description' => 'Horario laboral',
             ],
