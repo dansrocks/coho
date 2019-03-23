@@ -21,7 +21,8 @@
 
                     <div class="row p-2">
                         <div class="col-3">
-                            <!-- aquí irá la imagen -->
+                            <img class="card-img"
+                                 src="{{ asset('images/icons/' . $clockImage . '.png') }}" />
                         </div>
                         <div class="col-2"></div>
                         <div class="col text-center">

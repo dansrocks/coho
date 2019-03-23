@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\ITimeClock;
 use App\Managers\ClockTypesManager;
 use App\Managers\TimeClockManager;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +14,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class HomeController extends Controller
 {
-    const IMAGE_OUT_OF_WORK = '';
-    const IMAGE_WORKING = '';
-    const IMAGE_LUNCH = '';
-    const IMAGE_BREAK = '';
-    const IMAGE_OTHER = '';
-
     /**
      * Create a new controller instance.
      *
@@ -45,8 +40,32 @@ class HomeController extends Controller
         $content = [
             'timeClock' => $timeClock,
             'clockTypes' => $clockTypesManager->getTypes(),
+            'clockImage' => $this->getTimeClockImage($timeClock),
         ];
 
         return view('home', $content);
+    }
+
+
+    /**
+     * @param ITimeClock|null $timeClock
+     *
+     * @return string
+     */
+    private function getTimeClockImage($timeClock)
+    {
+        if (! $timeClock instanceof ITimeClock) {
+            $image = 'out-of-office-time';
+        } elseif ($timeClock->getType() == ITimeClock::TYPE_WORKING) {
+            $image = 'working-time';
+        } elseif ($timeClock->getType() == ITimeClock::TYPE_LUNCH) {
+            $image = 'lunch-time';
+        } elseif ($timeClock->getType() == ITimeClock::TYPE_BREAK) {
+            $image = 'break-time';
+        } else {
+            $image = 'thinking-time';
+        }
+
+        return $image;
     }
 }
