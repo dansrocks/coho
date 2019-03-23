@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class ClockType
+ *
+ * @package App\Models
+ */
 class ClockType extends Model
 {
     use SoftDeletes;

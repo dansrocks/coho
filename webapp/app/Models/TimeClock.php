@@ -20,6 +20,11 @@ class TimeClock extends Model implements ITimeClock
 
     protected $fillable = [];
 
+    protected $dates = [
+        'date',
+        'clockin',
+        'clockout'
+    ];
 
     /*
      *  =====================================
@@ -74,6 +79,15 @@ class TimeClock extends Model implements ITimeClock
     }
 
     /**
+     * @return Carbon
+     */
+    public function getClockInTime(): Carbon
+    {
+        return $this->getAttribute('clockin');
+    }
+
+
+    /**
      * @param Carbon $datetime
      *
      * @return mixed
@@ -81,6 +95,14 @@ class TimeClock extends Model implements ITimeClock
     public function setClockInTime(Carbon $datetime) : ITimeClock
     {
         return $this->setAttribute('clockin', $datetime);
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getClockOutTime(): Carbon
+    {
+        return $this->getAttribute('clockout');
     }
 
     /**
@@ -92,6 +114,25 @@ class TimeClock extends Model implements ITimeClock
     {
         return $this->setAttribute('clockout', $datetime);
     }
+
+    /**
+     * @return int
+     */
+    public function getDuration(): int
+    {
+        return $this->getAttribute('duration');
+    }
+
+    /**
+     * @param int $duration
+     *
+     * @return ITimeClock
+     */
+    public function setDuration(int $duration): ITimeClock
+    {
+        return $this->setAttribute('duration', $duration);
+    }
+
 
     /*
      *  =======================================
@@ -131,7 +172,7 @@ class TimeClock extends Model implements ITimeClock
      *
      * @throws \Exception
      */
-    public function scopeFromUser(Builder $query, Auth $user)
+    public function scopeFromUser(Builder $query, User $user)
     {
         return $query->where('fk_user_id', '=', $user->getKey());
     }

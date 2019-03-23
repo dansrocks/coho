@@ -49,11 +49,23 @@ interface ITimeClock
     public function setDate(Carbon $date) : ITimeClock;
 
     /**
+     * @return Carbon
+     */
+    public function getClockInTime() : Carbon;
+
+    /**
      * @param Carbon $datetime
      *
      * @return ITimeClock
      */
-    public function setClockInTime(Carbon $datetime) : ITimeClock;
+    public function setClockInTime(Carbon $date) : ITimeClock;
+
+    /**
+     * @param Carbon $datetime
+     *
+     * @return ITimeClock
+     */
+    public function getClockOutTime() : Carbon;
 
     /**
      * @param Carbon $datetime
@@ -61,6 +73,18 @@ interface ITimeClock
      * @return ITimeClock
      */
     public function setClockOutTime(Carbon $datetime) : ITimeClock;
+
+    /**
+     * @return int
+     */
+    public function getDuration() : int;
+
+    /**
+     * @param int $duration
+     *
+     * @return ITimeClock
+     */
+    public function setDuration(int $duration) : ITimeClock;
 
     /**
      * @return bool
