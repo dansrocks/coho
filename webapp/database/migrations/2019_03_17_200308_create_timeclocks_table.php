@@ -18,8 +18,8 @@ class CreateTimeClocksTable extends Migration
             $table->unsignedSmallInteger('fk_user_id');
             $table->string('type', 10);
             $table->date('date');
-            $table->time('clockin');
-            $table->time('clockout')->nullable()->default(null);
+            $table->dateTime('clockin');
+            $table->dateTime('clockout')->nullable()->default(null);
             $table->unsignedInteger('duration')->default(0);
             $table->timestamps();
         });
