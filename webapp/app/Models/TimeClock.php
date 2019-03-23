@@ -5,7 +5,9 @@ namespace App\Models;
 use App\Interfaces\ITimeClock;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class TimeClock
@@ -112,5 +114,47 @@ class TimeClock extends Model implements ITimeClock
     public function onClockOut(): bool
     {
         return $this->getAttribute('clockout') instanceof Carbon;
+    }
+
+
+    /*
+     *  ======================================
+     *  ============== SCOPES ================
+     *  ======================================
+     */
+
+    /**
+     * @param Builder $query
+     * @param Auth    $user
+     *
+     * @return Builder
+     *
+     * @throws \Exception
+     */
+    public function scopeFromUser(Builder $query, Auth $user)
+    {
+        return $query->where('fk_user_id', '=', $user->getKey());
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     *
+     * @throws \Exception
+     */
+    public function scopeFromToday(Builder $query)
+    {
+        return $query->where('date', '=', new Carbon('today'));
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return mixed
+     */
+    public function scopeNotClockOut(Builder $query)
+    {
+        return $query->whereNull('clockout');
     }
 }
