@@ -186,7 +186,20 @@ class TimeClock extends Model implements ITimeClock
      */
     public function scopeFromToday(Builder $query)
     {
-        return $query->where('date', '=', new Carbon('today'));
+        return $this->scopeFromDate($query, new Carbon("today"));
+    }
+
+    /**
+     * @param Builder $query
+     * @param Carbon $query
+     *
+     * @return Builder
+     *
+     * @throws \Exception
+     */
+    public function scopeFromDate(Builder $query, Carbon $date)
+    {
+        return $query->where('date', '=', $date);
     }
 
     /**
