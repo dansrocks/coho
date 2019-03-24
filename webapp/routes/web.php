@@ -17,10 +17,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/clockin', 'TimeClocksController@clockin')->name('clockin');
-Route::get('/clockout', 'TimeClocksController@clockout')->name('clockout');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/clockin', 'TimeClocksController@clockin')->name('clockin');
+    Route::get('/clockout', 'TimeClocksController@clockout')->name('clockout');
+
+    Route::get('/reports/daily', 'UserReportsController@showDailyReport')->name('users.reports.daily');
+    Route::get('/reports/monthly', 'UserReportsController@showMonthlyReport')->name('users.reports.monthly');
+});
 
 Route::middleware('required.admin')->prefix('admin')->group(function () {
 

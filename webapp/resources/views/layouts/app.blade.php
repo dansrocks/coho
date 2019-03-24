@@ -55,6 +55,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @include('users.menu_reports')
                                     @if (Auth::user()->hasRole(\App\Interfaces\IUser::ROLE_ADMIN))
                                         @include('admin.menu_admin')
                                     @endif
