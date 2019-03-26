@@ -19,28 +19,26 @@ class TimeDuration
     public static function showDurationHumanFriendly($timeInSeconds, $withSeconds = false)
     {
         $seconds = intval($timeInSeconds) % 60;
-        $time = floor($timeInSeconds / 60);
+        $timeInMinutes = floor($timeInSeconds / 60);
 
-        $minutes = ($time % 60);
-        $time = floor($time / 60);
-
-        $hours = floor($time / 60);
+        $minutes = ($timeInMinutes % 60);
+        $timeInHours = floor($timeInMinutes / 60);
 
         $timeAsText = '';
-        if ($hours > 0 ) {
-            $timeAsText .= sprintf("%d h", $hours);
+        if ($timeInHours > 0 ) {
+            $timeAsText .= sprintf(" %dh", $timeInHours);
         }
 
         if ($minutes > 0 ) {
-            $timeAsText .= sprintf("%d m", $minutes);
+            $timeAsText .= sprintf(" %dm", $minutes);
         }
 
         if ($withSeconds && $seconds > 0 ) {
-            $timeAsText .= sprintf("%d s", $hours);
+            $timeAsText .= sprintf(" %ds", $seconds);
         }
 
         if (empty($timeAsText)) {
-            $timeAsText = '0 s';
+            $timeAsText = '--';
         }
 
         return $timeAsText;
