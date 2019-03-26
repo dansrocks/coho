@@ -31,6 +31,9 @@ make rollback:
 make seed:
 	@docker-compose exec $(PHP_CONTAINER) php artisan db:seed
 
+make clear:
+	@docker-compose exec $(PHP_CONTAINER) php artisan view:clear
+
 make composer:
 	@docker-compose up $(COMPOSER_CONTAINER)
 
