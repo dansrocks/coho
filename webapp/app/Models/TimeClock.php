@@ -191,6 +191,18 @@ class TimeClock extends Model implements ITimeClock
 
     /**
      * @param Builder $query
+     *
+     * @return Builder
+     *
+     * @throws \Exception
+     */
+    public function scopeBetweenDates(Builder $query, Carbon $from, Carbon $to)
+    {
+        return $query->whereBetween('date', [$from, $to]);
+    }
+
+    /**
+     * @param Builder $query
      * @param Carbon $query
      *
      * @return Builder
