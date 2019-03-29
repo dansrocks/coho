@@ -87,7 +87,7 @@ class UserReportsController extends Controller
         while ($iteratorDate <= $to) {
             $parsedData[$iteratorDate->format('d')] = [
                 'date' => clone($iteratorDate),
-                'isHoliday' => $this->isWeekend($iteratorDate),
+                'isWeekend' => $this->isWeekend($iteratorDate),
                 'types' => [],
                 'clocks' => 0,
                 'duration' => 0,

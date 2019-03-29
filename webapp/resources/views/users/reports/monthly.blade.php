@@ -25,7 +25,10 @@
                             </thead>
                             <tbody>
                             @forelse ($monthlyData as $data)
-                                <tr @if ($data['isWeekend'])class="weekend" style="background-color:#FB0"@endif>
+                                <tr @if ($data['isWeekend'])
+                                    class="weekend"
+                                    style="background-color:rgba(255,187,0,0.5); color:red"
+                                    @endif>
                                     <td class="badge-dark text-center">{{ $data['date']->format('d') }}</td>
                                     @foreach($types as $type)
                                     <td class="text-center">
