@@ -24,7 +24,7 @@ class ClockTypesController extends Controller
     public function index()
     {
         $content = [
-            'clockTypes' => ClockType::all(['id', 'name', 'description'])
+            'clockTypes' => ClockType::all(['id', 'name', 'is_native', 'description'])
         ];
 
         return view('admin.clocktypes.view', $content);
@@ -144,8 +144,13 @@ class ClockTypesController extends Controller
         try {
             /** @var ClockType $clockType */
             $clockType = ClockType::findOrFail($id);
-            $clockType->delete();
-            $action->with('success', 'Stock has been deleted Successfully');
+
+            if (! $clockType->is_native) {
+                $clockType->delete();
+                $action->with('success', 'Stock has been deleted Successfully');
+            } else {
+                $action->withErrors('No se pueden borrar tipos de fichaje nativos');
+            }
 
         } catch (ModelNotFoundException $exception) {
             $action->withErrors('No existe el registro o ya ha sido borrado');

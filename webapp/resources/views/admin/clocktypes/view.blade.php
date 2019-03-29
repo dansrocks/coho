@@ -45,11 +45,13 @@
                                         <a href="{{ route('clocktypes.edit',$clockType->id)}}" class="btn btn-sm btn-primary">Modificar</a>
                                     </td>
                                     <td class="text-center">
+                                        @if (! $clockType->is_native)
                                         <form action="{{ route('clocktypes.destroy', $clockType->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-sm btn-danger" type="submit">Borrar</button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
