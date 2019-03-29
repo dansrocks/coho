@@ -87,6 +87,7 @@ class UserReportsController extends Controller
         while ($iteratorDate <= $to) {
             $parsedData[$iteratorDate->format('d')] = [
                 'date' => clone($iteratorDate),
+                'isHoliday' => $this->isWeekend($iteratorDate),
                 'types' => [],
                 'clocks' => 0,
                 'duration' => 0,
@@ -110,5 +111,18 @@ class UserReportsController extends Controller
             }
         }
         return $parsedData;
+    }
+
+
+    /**
+     * @param \DateTime $date
+     *
+     * @return bool
+     */
+    private function isWeekend(\DateTime $date)
+    {
+        $isWeekend = $date->format('N') >= 6;
+
+        return $isWeekend;
     }
 }

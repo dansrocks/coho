@@ -25,7 +25,7 @@
                             </thead>
                             <tbody>
                             @forelse ($monthlyData as $data)
-                                <tr>
+                                <tr @if ($data['isWeekend'])class="weekend" style="background-color:#FB0"@endif>
                                     <td class="badge-dark text-center">{{ $data['date']->format('d') }}</td>
                                     @foreach($types as $type)
                                     <td class="text-center">
@@ -36,14 +36,11 @@
                                         @endif
                                     </td>
                                     @endforeach
-                                    <td class="text-center font-weight-bold">@duration($data['duration'])</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="bg-warning">
-                                        {{ __('No hay fichajes este día') }}
+                                    <td class="text-center font-weight-bold">
+                                        @duration($data['duration'])
                                     </td>
                                 </tr>
+                            @empty
                             @endforelse
                             </tbody>
                         </table>
