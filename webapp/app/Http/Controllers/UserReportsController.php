@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Managers\ClockTypesManager;
 use App\Managers\UserReportsManager;
+use App\Models\TimeClock;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -32,9 +33,19 @@ class UserReportsController extends Controller
 
         $timeClocks = $manager->getDailyReport($today);
 
+        $currentClockIn = null;
+        /** @var TimeClock $timeClock */
+        foreach ($timeClocks as $timeClock) {
+            if (! $timeClock->onClockOut()) {
+                $currentClockIn = $timeClock;
+                break;
+            }
+        }
+
         $content = [
             'today' => $today,
             'timeClocks' => $timeClocks,
+            'currentClockIn' => $currentClockIn,
         ];
 
         return view('users.reports.daily', $content);

@@ -51,6 +51,19 @@
                                     </td>
                                 </tr>
                             @endforelse
+                            @if ($currentClockIn)
+                                <tr>
+                                    <td colspan="5">
+                                        <br/>
+                                        &gt;&gt;&gt;
+                                        {{ __('Actualmente estas fichado desde las :hora en :tipoFichaje',
+                                            [
+                                                'hora' => $currentClockIn->getClockInTime()->format("H:i"),
+                                                'tipoFichaje' => $currentClockIn->getType(),
+                                            ]) }}
+                                    </td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>

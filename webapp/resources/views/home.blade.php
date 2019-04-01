@@ -29,9 +29,9 @@
                             @if (! $timeClock instanceof \App\Interfaces\ITimeClock)
                                 <form action="{{ route('clockin') }}" method="get">
                                     @csrf
-                                    <p>No estás fichado.</p>
+                                    <p>{{ __('No estás fichado.') }}</p>
                                     <hr>
-                                    <strong>Fichar:</strong>
+                                    <strong>{{ __('Fichar') }}:</strong>
                                     <select name="clocktype" class="custom-select">
                                         @foreach($clockTypes as $clocktype)
                                             <option>{{ __($clocktype) }}</option>
@@ -48,6 +48,7 @@
                                         <input class="form-control text-center font-weight-bold"
                                                value="{{ __($timeClock->getType()) }}"
                                                disabled="disabled">
+                                        {{ __('desde las ') }} @time($timeClock->getClockInTime())
                                     </p>
                                     <input type="submit" class="btn btn-sm btn-success font-weight-bold" value="CLOCK OUT" />
                                 </form>
