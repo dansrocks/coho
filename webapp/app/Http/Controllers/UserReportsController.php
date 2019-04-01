@@ -59,8 +59,8 @@ class UserReportsController extends Controller
     public function showMonthlyReport()
     {
         $user = Auth::user();
-        $from = new Carbon("first day of this month");
-        $to = new Carbon("last day of this month");
+        $from = (new Carbon("first day of this month"))->setTime(0,0,0);
+        $to = (new Carbon("last day of this month"))->setTime(23,59,59);
 
         $manager = new UserReportsManager($user);
         $typesManager = new ClockTypesManager();
